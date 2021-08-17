@@ -194,8 +194,7 @@
           <div class="col-sm-8 col-12">
             <label :for="\`share-\${num}\`">Share #{{ num }}</label>
             <div class="input-group">
-              <input type="text" :id="\`share-\${num}\`" v-model="shares[num - 1]" class="form-control font-awesome"
-                     :disabled="success && num === numOfShares"/>
+              <input type="text" :id="\`share-\${num}\`" v-model="shares[num - 1]" class="form-control font-awesome"/>
               <button class="btn btn-outline-secondary" v-if="shares[num - 1]" @click="deleteItem(num - 1)">
                 ⤫
               </button>
