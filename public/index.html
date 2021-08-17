@@ -73,10 +73,10 @@
         pages: [
           {
             id: 'split',
-            title: 'Split Secret',
+            title: 'Split',
           }, {
             id: 'recover',
-            title: 'Recover Secret',
+            title: 'Recover',
           }, {
             id: 'about',
             title: 'About',
@@ -145,7 +145,7 @@
 
         <h5>Result</h5>
         <div class="row">
-          <div class="col text-center" v-for="share in shares">
+          <div class="col-6 col-sm-4 col-md-3 text-center mb-3" v-for="share in shares">
             <div v-if="generateQRCodes">
               <qrcode v-if="embedLinksIntoQRCodes" :data="recoverUrl(share)"></qrcode>
               <qrcode v-else :data="share"></qrcode>
@@ -191,7 +191,7 @@
       template: `
         <div class="mb-3" v-for="num in numOfShares">
         <div class="row">
-          <div class="col-8">
+          <div class="col-sm-8 col-12">
             <label :for="\`share-\${num}\`">Share #{{ num }}</label>
             <div class="input-group">
               <input type="text" :id="\`share-\${num}\`" v-model="shares[num - 1]" class="form-control font-awesome"
@@ -203,7 +203,7 @@
           </div>
 
           <template v-if="shares[num - 1]">
-            <div class="col-2">
+            <div class="col-sm-2 col-6">
               <label>&nbsp</label>
               <div class="input-group">
                 <div class="input-group-text">ID:</div>
@@ -211,7 +211,7 @@
                        :class="{ 'is-invalid' : extractID(shares[num - 1]) !== extractID(shares[0]) }">
               </div>
             </div>
-            <div class="col-2">
+            <div class="col-sm-2 col-6">
               <label>&nbsp</label>
               <div class="input-group">
                 <div class="input-group-text">SEQ:</div>
@@ -220,7 +220,7 @@
             </div>
           </template>
           <template v-else>
-            <div class="col-4">
+            <div class="col-sm-4">
               <label>&nbsp</label>
               <div>
                 <button class="btn btn-secondary" :disabled="success" @click="scanQRCode()">Scan QR Code</button>
@@ -331,7 +331,7 @@
     });
 
     app.component('qrcode', {
-      template: `<img v-if="src" :src="src"/>`,
+      template: `<img v-if="src" :src="src" class="qrcode"/>`,
       props: ['data'],
       data: () => ({
         src: '',
@@ -434,7 +434,7 @@
     cursor: default;
   }
 
-  canvas {
+  canvas, .qrcode {
     max-width: 100%;
   }
 </style>
