@@ -145,7 +145,7 @@
 
         <h5>Result</h5>
         <div class="row">
-          <div class="col-6 col-sm-4 col-md-3 text-center mb-3" v-for="share in shares">
+          <div class="col-12 col-xs-6 col-md-3 text-center mb-3" v-for="share in shares">
             <div v-if="generateQRCodes">
               <qrcode v-if="embedLinksIntoQRCodes" :data="recoverUrl(share)"></qrcode>
               <qrcode v-else :data="share"></qrcode>
@@ -251,8 +251,8 @@
       }),
       methods: {
         processQRCodeData(data) {
-          console.log(data);
           const urlMatch = data.match(/#\/recover\/([^/]+)/);
+
           if (urlMatch) {
             this.shares.push(urlMatch[1]);
           } else {
@@ -350,9 +350,13 @@
 
     app.component('qrcode-scanner', {
       template: `
-        <canvas :id="id"></canvas>`,
+        <div>
+          <video :id="videoId"></video>
+          <canvas :id="canvasId"></canvas>
+        </div>`,
       data: () => ({
-        id: `qrcode-scanner-canvas-${ uint8ArrayToHex(randomBytes(4)) }`,
+        canvasId: `qrcode-scanner-canvas-${ uint8ArrayToHex(randomBytes(4)) }`,
+        videoId: `qrcode-scanner-video-${ uint8ArrayToHex(randomBytes(4)) }`,
         active: true,
         stop: () => void 0,
       }),
@@ -362,8 +366,8 @@
         this.stop();
       },
       mounted() {
-        const video = document.createElement('video');
-        const canvasElement = document.getElementById(this.id);
+        const video = document.getElementById(this.videoId);
+        const canvasElement = document.getElementById(this.canvasId);
         const canvas = canvasElement.getContext('2d');
 
         function drawLine(begin, end, color) {
