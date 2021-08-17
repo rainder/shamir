@@ -283,7 +283,7 @@
             this.result = new TextDecoder().decode(decrypted);
             this.success = true;
           } catch (e) {
-            this.result = `Error decoding: ${ e.message }\n\nInvalid shares or quorum is not satisfied?`;
+            this.result = `Error decoding: ${ e.message }\n\nInvalid shares or quorum is not satisfied? Try adding another share.`;
             this.success = false;
           }
         },
