@@ -351,7 +351,7 @@
     app.component('qrcode-scanner', {
       template: `
         <div>
-          <video :id="videoId"></video>
+          <video :id="videoId" style="width: 0; height: 0"></video>
           <canvas :id="canvasId"></canvas>
         </div>`,
       data: () => ({
