@@ -223,7 +223,10 @@
             <div class="col-sm-4">
               <label>&nbsp</label>
               <div>
-                <button class="btn btn-secondary" :disabled="success" @click="scanQRCode()">Scan QR Code</button>
+                <button class="btn btn-secondary" :disabled="success" @click="scanQRCode()">
+                  <template v-if="!scanningQRCode">Scan QR Code</template>
+                  <template v-else>Cancel</template>
+                </button>
               </div>
               <div class="py-3">
                 <qrcode-scanner v-if="scanningQRCode" @code="processQRCodeData($event)"/>
@@ -350,7 +353,7 @@
 
     app.component('qrcode-scanner', {
       template: `
-        <div>
+        <div class="ratio ratio-4x3">
           <video :id="videoId" style="width: 0; height: 0"></video>
           <canvas :id="canvasId"></canvas>
         </div>`,
