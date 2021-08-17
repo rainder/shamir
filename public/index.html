@@ -220,16 +220,16 @@
             </div>
           </template>
           <template v-else>
-            <div class="col-sm-4">
+            <div class="col-sm-4" v-if="!success">
               <label>&nbsp</label>
-              <div>
+              <div class="text-end text-sm-start">
                 <button class="btn btn-secondary" :disabled="success" @click="scanQRCode()">
                   <template v-if="!scanningQRCode">Scan QR Code</template>
                   <template v-else>Cancel</template>
                 </button>
               </div>
-              <div class="py-3">
-                <qrcode-scanner v-if="scanningQRCode" @code="processQRCodeData($event)"/>
+              <div class="py-3" v-if="scanningQRCode">
+                <qrcode-scanner @code="processQRCodeData($event)"/>
               </div>
             </div>
           </template>
@@ -237,11 +237,10 @@
         </div>
 
         <div v-if="shares.length">
-        <h5>Result</h5>
-        <div class="mb-3">
-          <label for="result">Secret data</label>
-          <textarea id="result" v-model="result" readonly class="form-control font-awesome" rows="10"></textarea>
-        </div>
+          <h5>Secret data</h5>
+          <div class="mb-3">
+            <textarea v-model="result" readonly class="form-control font-awesome" rows="10" :class="{ 'border-success':success, 'border-danger':!success }"></textarea>
+          </div>
         </div>
 
 
@@ -285,22 +284,25 @@
             this.result = new TextDecoder().decode(decrypted);
             this.success = true;
           } catch (e) {
-            this.result = `Error: ${ e.message }`;
+            this.result = `Error decoding: ${ e.message }`;
             this.success = false;
           }
         },
       },
       computed: {
         numOfShares() {
-          return (this.shares?.length ?? 0) + 1;
+          return this.sharesLength + (this.success ? 0 : 1);
         },
+        sharesLength() {
+          return this.shares?.length ?? 0;
+        }
       },
       watch: {
         shares: {
           deep: true,
           immediate: true,
           handler() {
-            for (let i = (this.shares?.length ?? 0) - 1; i >= 0; i--) {
+            for (let i = this.sharesLength - 1; i >= 0; i--) {
               if (this.shares[i]) {
                 break;
               }
@@ -443,6 +445,11 @@
 
   canvas, .qrcode {
     max-width: 100%;
+  }
+
+  canvas {
+    border-radius: 10px;
+    overflow: hidden;
   }
 </style>
 
