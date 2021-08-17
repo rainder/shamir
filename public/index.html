@@ -96,29 +96,19 @@
 
     app.component('page-split', {
       template: `
-        <p class="card-text">
-        This app allows you to split your secret data into multiple <strong>shares</strong> with AES-256 encryption
-        algorithm.<br/>
-        The number of randomly picked shares (defined as <strong>quorum</strong>) will be required to be provided to
-        recover your secret data.<br/>
-        <br/>
-
-        <strong>Note: it is mathematically impossible to recover your secret without minimum amount of shares!</strong>
-        </p>
-
         <div class="row">
-        <div class="col-6">
-          <div class="mb-3">
-            <label for="shares">Number of shares</label>
-            <input type="number" id="shares" :min="numQuorum" v-model="numOfShares" class="form-control font-awesome"/>
+          <div class="col-6">
+            <div class="mb-3">
+              <label for="shares">Number of shares</label>
+              <input type="number" id="shares" :min="numQuorum" v-model="numOfShares" class="form-control font-awesome"/>
+            </div>
           </div>
-        </div>
-        <div class="col-6">
-          <div class="mb-3">
-            <label for="quorum">Quorum</label>
-            <input type="number" id="quorum" v-model="numQuorum" class="form-control font-awesome" :max="numOfShares"/>
+          <div class="col-6">
+            <div class="mb-3">
+              <label for="quorum">Quorum</label>
+              <input type="number" id="quorum" v-model="numQuorum" class="form-control font-awesome" :max="numOfShares"/>
+            </div>
           </div>
-        </div>
         </div>
 
         <div class="mb-3">
@@ -329,7 +319,17 @@
 
     app.component('page-about', {
       template: `
-        <h5>About</h5>
+        <p class="card-text">
+          This app allows you to split your secret data into multiple <strong>shares</strong> using
+          <a href="https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing" target="_blank">Shamir's Secret Sharing algorithm</a>.
+        </p>
+        <p>
+          Your secret data is encrypted using <strong>AES-256 GCM</strong> cypher with randomly chosen 128bit password
+          along with random 128bit IV which are then distributed within <strong>shares</strong>.
+        </p>
+        <p>
+          <strong>Quorum</strong> defines the minimum amount of shares required to reconstruct secret data.
+        </p>
       `,
       data: () => ({}),
     });
