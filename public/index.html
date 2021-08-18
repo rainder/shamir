@@ -342,7 +342,7 @@
         <p>
           <strong>Quorum</strong> defines the minimum amount of shares required to reconstruct secret data.
         </p>
-        <h5>Pseudo code</h5>
+        <h5 class="mt-4">Pseudo code</h5>
 
         <pre style="white-space: pre-line"><code>id = randomBytes(4)
           key = randomBytes(16)
@@ -350,9 +350,16 @@
           cyphertext = AES256GCM(secretData, key, iv)
           payload = key + iv + cyphertext;
           shares = Shamir(payload, numShares, numQuorum)
-          share(n) = base62(n + id + shares[n])</code></pre>
+          share(n) = base62(n + id + shares[n])
+        </code></pre>
 
-        <p>Source code can be found on <a href="https://github.com/rainder/shamir" target="_blank">GitHub</a></p>
+        <h5 class="mt-4">Constraints</h5>
+
+        <pre style="white-space: pre-line"><code>0 < n < 256, n = [1..numShares], 0 < numQuorum <= numShares
+          n = 1 byte, id = 4 bytes, key = 16 bytes, iv = 16 bytes, cyphertext = variable
+        </code></pre>
+
+        <p class="mt-5">Source code can be found on <a href="https://github.com/rainder/shamir" target="_blank">GitHub</a>.</p>
       `,
       data: () => ({}),
     });
