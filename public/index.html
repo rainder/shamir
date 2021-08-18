@@ -327,6 +327,10 @@
           Your secret data is encrypted using <strong>AES-256 GCM</strong> cypher with randomly chosen 128bit key
           and 128bit IV which are then distributed within <strong>shares</strong>.
         </p>
+        <p>
+          <strong>Quorum</strong> defines the minimum amount of shares required to reconstruct secret data.
+        </p>
+        <h5>Pseudo code<h5/>
         <p><pre style="white-space: pre-line"><code>
           id = randomBytes(4)
           key = randomBytes(16)
@@ -335,9 +339,7 @@
           payload = key + iv + cyphertext;
           shares = Shamir(payload, numShares, numQuorum)
           share(n) = base62(n + id + shares[n])<p/>
-        </code></pre><p>
-          <strong>Quorum</strong> defines the minimum amount of shares required to reconstruct secret data.
-        </p>
+        </code></pre>
         <p>Source code can be found on <a href="https://github.com/rainder/shamir" target="_blank">GitHub</><p/>
       `,
       data: () => ({}),
