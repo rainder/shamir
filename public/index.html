@@ -90,7 +90,18 @@
 
           this.currentPage = page;
           this.pageParams = params;
+
+          history.replaceState({}, '', `${url.pathname}${url.search}#/${page}`);
         }
+      },
+      watch: {
+        currentPage: {
+          immediate: false,
+          handler(page) {
+            const url = new URL(top.location.href);
+            history.replaceState({}, '', `${url.pathname}${url.search}#/${page}`);
+          },
+        },
       },
     });
 
@@ -319,6 +330,7 @@
 
     app.component('page-about', {
       template: `
+        <h5>Description</h5>
         <p class="card-text">
           This app allows you to split your secret data into multiple <strong>shares</strong> using
           <a href="https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing" target="_blank">Shamir's Secret Sharing algorithm</a>.
@@ -331,16 +343,16 @@
           <strong>Quorum</strong> defines the minimum amount of shares required to reconstruct secret data.
         </p>
         <h5>Pseudo code</h5>
-        <p><pre style="white-space: pre-line"><code>
-          id = randomBytes(4)
+
+        <pre style="white-space: pre-line"><code>id = randomBytes(4)
           key = randomBytes(16)
           iv = randomBytes(16)
           cyphertext = AES256GCM(secretData, key, iv)
           payload = key + iv + cyphertext;
           shares = Shamir(payload, numShares, numQuorum)
-          share(n) = base62(n + id + shares[n])<p/>
-        </code></pre>
-        <p>Source code can be found on <a href="https://github.com/rainder/shamir" target="_blank">GitHub</><p/>
+          share(n) = base62(n + id + shares[n])</code></pre>
+
+        <p>Source code can be found on <a href="https://github.com/rainder/shamir" target="_blank">GitHub</a></p>
       `,
       data: () => ({}),
     });
