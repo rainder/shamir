@@ -1,0 +1,17 @@
+
+.font-awesome {
+  font-family: Courier;
+}
+
+.nav-link.active, .disabled, :disabled {
+  cursor: default;
+}
+
+canvas, .qrcode {
+  max-width: 100%;
+}
+
+canvas {
+  border-radius: 10px;
+  overflow: hidden;
+}
