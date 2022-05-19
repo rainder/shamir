@@ -4,7 +4,7 @@ export const mount = (app) => app.component('container', {
       <div class="py-4 mb-5">
         <div class="row">
           <div class="col">
-            <h2 class="mb-4">Shamir's Secret Sharing</h2>
+            <h2 class="mb-4 d-print-none">Shamir's Secret Sharing</h2>
     
             <div class="card">
               <div class="card-header d-print-none">
