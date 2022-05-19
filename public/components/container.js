@@ -7,7 +7,7 @@ export const mount = (app) => app.component('container', {
             <h2 class="mb-4">Shamir's Secret Sharing</h2>
     
             <div class="card">
-              <div class="card-header">
+              <div class="card-header d-print-none">
                 <ul class="nav nav-tabs card-header-tabs">
                   <li class="nav-item" v-for="page in pages">
                     <a class="nav-link" :class="{ active: page.id === currentPage }" href="#"
