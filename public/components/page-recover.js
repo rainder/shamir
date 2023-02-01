@@ -67,7 +67,6 @@ export const mount = (app) => app.component('page-recover', {
   }),
   methods: {
     processQRCodeData(data) {
-      console.log(data);
       const urlMatch = data.match(/#\/recover\/([^/]+)/);
 
       if (urlMatch) {
@@ -85,10 +84,18 @@ export const mount = (app) => app.component('page-recover', {
       this.shares.splice(index, 1);
     },
     extractID(tok) {
-      return uint8ArrayToHex(baseEncoding.decode(tok).slice(1, 5));
+      try {
+        return uint8ArrayToHex(baseEncoding.decode(tok).slice(1, 5));
+      } catch (e) {
+        return '?';
+      }
     },
     extractSeq(tok) {
-      return uint8ArrayToHex(baseEncoding.decode(tok).slice(0, 1));
+      try {
+        return uint8ArrayToHex(baseEncoding.decode(tok).slice(0, 1));
+      } catch (e) {
+        return '?';
+      }
     },
     async recover() {
       try {
