@@ -67,6 +67,7 @@ export const mount = (app) => app.component('page-recover', {
   }),
   methods: {
     processQRCodeData(data) {
+      console.log(data);
       const urlMatch = data.match(/#\/recover\/([^/]+)/);
 
       if (urlMatch) {
